@@ -9,6 +9,7 @@
 import Foundation
 
 extension Date {
+    
     func dayOfTheMonth() -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d"
