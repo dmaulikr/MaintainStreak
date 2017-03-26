@@ -43,6 +43,6 @@ class CalendarCell: UICollectionViewCell {
             colorfullViews[event.id].backgroundColor = event.color
         }
         
-        dateLabel.text = day.date.dayOfTheMonth()
+        dateLabel.text = day.date.dayOfTheMonth
     }
 }
