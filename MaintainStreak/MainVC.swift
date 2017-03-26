@@ -13,7 +13,7 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     
     var days: [Day] = [Day]()
     @IBOutlet weak var calendarView: UICollectionView!
-    var month: DateComponents!
+    var monthYear: DateComponents!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +22,7 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         calendarView.dataSource = self
         
         //get saved month
-        month = Date().month
+        monthYear = Date().monthYear
         //get saved days
         generateDaysInCalendar()
         
@@ -81,10 +81,13 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func loadDaysFromMonth() {
-        let today = month.date
-        _ = month.dateRange(startDate: today.firstDayOfMonth, endDate: today.lastDayOfMonth) { day in 
-            if days.filter({$0.date == day}).count != 1 {
-                days.append( Day(date: Date(), events: []))
+        let today = monthYear.date
+        let initialDays = days
+        
+        _ = monthYear.dateRange(startDate: today.firstDayOfMonth, endDate: today.lastDayOfMonth) { day in
+            let isDayInDays = initialDays.filter({ $0.date.dayEqualTo(day) }).count == 1
+            if  !isDayInDays {
+                days.append( Day(date: day, events: []))
             }
         }
         

@@ -31,8 +31,12 @@ extension Date {
         return gregCalendar.date(from: comp)!
     }
     
-    var month: DateComponents {
-        return gregCalendar.dateComponents([.month], from: self)
+    var monthYear: DateComponents {
+        return gregCalendar.dateComponents([.month, .year], from: self)
+    }
+    
+    func dayEqualTo(_ day: Date) -> Bool {
+        return gregCalendar.isDate(self, inSameDayAs: day)
     }
 }
 
@@ -50,6 +54,7 @@ extension DateComponents {
         while date <= endDate {
             completion(date)
             date = gregCalendar.date(byAdding: .day, value: 1, to: date)!
+            print(date)
         }
     }
 }
