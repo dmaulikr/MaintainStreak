@@ -17,6 +17,7 @@
 		5B570B891E8558810021823E /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B570B881E8558810021823E /* CalendarCell.swift */; };
 		5B570B8B1E86A8DD0021823E /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B570B8A1E86A8DD0021823E /* Date+Ext.swift */; };
 		5B570B901E86B1E80021823E /* MaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B570B8F1E86B1E80021823E /* MaterialView.swift */; };
+		5BE0DAF11E88047E008D920F /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE0DAF01E88047E008D920F /* EventCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		5B570B881E8558810021823E /* CalendarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		5B570B8A1E86A8DD0021823E /* Date+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		5B570B8F1E86B1E80021823E /* MaterialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialView.swift; sourceTree = "<group>"; };
+		5BE0DAF01E88047E008D920F /* EventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				5B570B881E8558810021823E /* CalendarCell.swift */,
+				5BE0DAF01E88047E008D920F /* EventCell.swift */,
 				5B570B8F1E86B1E80021823E /* MaterialView.swift */,
 			);
 			name = view;
@@ -171,6 +174,7 @@
 				5B570B741E854D830021823E /* MainVC.swift in Sources */,
 				5B570B721E854D830021823E /* AppDelegate.swift in Sources */,
 				5B570B8B1E86A8DD0021823E /* Date+Ext.swift in Sources */,
+				5BE0DAF11E88047E008D920F /* EventCell.swift in Sources */,
 				5B570B851E85581A0021823E /* Day.swift in Sources */,
 				5B570B901E86B1E80021823E /* MaterialView.swift in Sources */,
 				5B570B891E8558810021823E /* CalendarCell.swift in Sources */,

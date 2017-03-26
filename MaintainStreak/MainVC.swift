@@ -9,12 +9,14 @@
 import UIKit
 import Foundation
 
-class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class MainVC: UIViewController {
     
     var days: [Day] = [Day]()
     var daysInThisMonth: [Day] = [Day]()
+    var events: [Event] = [Event]()
     
     @IBOutlet weak var calendarView: UICollectionView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var navigatorTitle: UILabel!
     
     var monthYear: DateComponents!
@@ -25,8 +27,11 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         calendarView.delegate = self
         calendarView.dataSource = self
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        
         //get saved month
-        monthYear = Date().adding(months: -1)?.monthYear
+        monthYear = Date().adding(months: 0)?.monthYear
         
         navigatorTitle.text = monthYear.dateFromComponents.descriptionWithLongMonthAndYear
         //get saved days
@@ -35,28 +40,6 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         //load current days using current month
         loadDaysFromMonth()
     }
-
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return days.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendarCell", for: indexPath) as? CalendarCell {
-            cell.configure(day: days[indexPath.row])
-            return cell
-        }
-        
-        return UICollectionViewCell()
-    }
-    
     
     func generateEvents() -> [Event] {
         let event1 = Event(id: 0, name: "Paint", description: "Fun way to relax", color:
@@ -88,18 +71,65 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     
     func loadDaysFromMonth() {
         let today = monthYear.dateFromComponents
-        let initialDays = days
         
         _ = monthYear.dateRange(startDate: today.firstDayOfMonth, endDate: today.lastDayOfMonth) { day in
-            let isDayInDays = initialDays.filter({ $0.date.dayEqualTo(day) }).count == 1
-            if  !isDayInDays {
-                days.append( Day(date: day, events: []))
+            let savedDay = days.filter({ $0.date.dayEqualTo(day) })
+            if  savedDay.count != 1 {
+                daysInThisMonth.append( Day(date: day, events: []))
+            } else {
+                daysInThisMonth.append(savedDay.first!)
             }
         }
         
-        days.sort{
+        daysInThisMonth.sort{
             $0.date < $1.date
         }
+    }
+}
+
+extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return daysInThisMonth.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        events = daysInThisMonth[indexPath.row].events
+        tableView.reloadData()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendarCell", for: indexPath) as? CalendarCell {
+            cell.configure(day: daysInThisMonth[indexPath.row])
+            return cell
+        }
+        
+        return UICollectionViewCell()
+    }
+    
+}
+
+extension MainVC: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return events.count
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as? EventCell {
+            cell.configure(events[indexPath.row])
+            return cell
+        }
+        
+        return UITableViewCell()
     }
 }
 

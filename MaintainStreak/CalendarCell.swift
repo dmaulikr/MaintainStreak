@@ -20,6 +20,13 @@ class CalendarCell: UICollectionViewCell {
     var colorfullViews = [UIView]()
     
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var viewInCell: UIView!
+    
+    override var isHighlighted: Bool {
+        didSet {
+            self.viewInCell.backgroundColor = isHighlighted ? UIColor(white: 217.0/255.0, alpha: 1.0) : nil
+        }
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
