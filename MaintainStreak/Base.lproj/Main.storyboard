@@ -46,53 +46,53 @@
                                     <constraint firstAttribute="height" constant="250" id="F6b-5b-3mc"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="q09-P1-5Mp">
-                                    <size key="itemSize" width="44" height="51"/>
+                                    <size key="itemSize" width="28" height="37"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="calendarCell" id="DWH-6c-H25" customClass="CalendarCell" customModule="MaintainStreak" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="44" height="51"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="28" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="44" height="51"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="28" height="37"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ICp-Jc-HUh">
-                                                    <rect key="frame" x="2" y="2" width="40" height="47"/>
+                                                    <rect key="frame" x="2" y="2" width="24" height="33"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="nlI-aI-MtL">
-                                                            <rect key="frame" x="0.0" y="0.0" width="40" height="47"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="24" height="33"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="iMe-NK-Y8e">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="47"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="33"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="KST-2n-kJs">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="40" height="12.5"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="24" height="7.5"/>
                                                                             <subviews>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wK9-vf-i01">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="17.5" height="12.5"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="9.5" height="7.5"/>
                                                                                 </view>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zrf-dI-txl">
-                                                                                    <rect key="frame" x="22.5" y="0.0" width="17.5" height="12.5"/>
+                                                                                    <rect key="frame" x="14.5" y="0.0" width="9.5" height="7.5"/>
                                                                                 </view>
                                                                             </subviews>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Oud-ax-a3Y">
-                                                                            <rect key="frame" x="0.0" y="17.5" width="40" height="12"/>
+                                                                            <rect key="frame" x="0.0" y="12.5" width="24" height="8"/>
                                                                             <subviews>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="odE-Lh-H12">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="17.5" height="12"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="9.5" height="8"/>
                                                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 </view>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iK5-Ff-fDi">
-                                                                                    <rect key="frame" x="22.5" y="0.0" width="17.5" height="12"/>
+                                                                                    <rect key="frame" x="14.5" y="0.0" width="9.5" height="8"/>
                                                                                 </view>
                                                                             </subviews>
                                                                         </stackView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y1p-1w-Imr">
-                                                                            <rect key="frame" x="0.0" y="34.5" width="40" height="12.5"/>
+                                                                            <rect key="frame" x="0.0" y="25.5" width="24" height="7.5"/>
                                                                             <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="10"/>
                                                                             <color key="textColor" red="0.33047372102737427" green="0.41472697257995605" blue="0.48145031929016113" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
