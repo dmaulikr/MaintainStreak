@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friday, 24 March, 2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="anA-Jf-pUm">
-                                        <rect key="frame" x="70" y="19" width="180" height="23.5"/>
+                                        <rect key="frame" x="70" y="28.5" width="180" height="23.5"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
                                         <color key="textColor" red="0.33047372102737427" green="0.41472697257995605" blue="0.48145031929016113" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -36,7 +36,7 @@
                                 <constraints>
                                     <constraint firstItem="anA-Jf-pUm" firstAttribute="centerX" secondItem="Nsz-7b-fag" secondAttribute="centerX" id="3jC-Bx-YtH"/>
                                     <constraint firstAttribute="height" constant="60" id="4GE-Iw-tgy"/>
-                                    <constraint firstItem="anA-Jf-pUm" firstAttribute="centerY" secondItem="Nsz-7b-fag" secondAttribute="centerY" id="XEh-l1-lry"/>
+                                    <constraint firstAttribute="bottom" secondItem="anA-Jf-pUm" secondAttribute="bottom" constant="8" id="fQI-3d-aXw"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Fgk-0B-EFP">
@@ -147,6 +147,7 @@
                     </view>
                     <connections>
                         <outlet property="calendarView" destination="Fgk-0B-EFP" id="ZFp-rM-EWo"/>
+                        <outlet property="navigatorTitle" destination="anA-Jf-pUm" id="lNj-cu-XDF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

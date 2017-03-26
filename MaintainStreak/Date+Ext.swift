@@ -38,11 +38,27 @@ extension Date {
     func dayEqualTo(_ day: Date) -> Bool {
         return gregCalendar.isDate(self, inSameDayAs: day)
     }
+    
+    func adding(months: Int) -> Date? {
+        
+        var components = DateComponents()
+        components.calendar = gregCalendar
+        components.month = months
+        
+        return gregCalendar.date(byAdding: components, to: self)
+    }
+    
+    var descriptionWithLongMonthAndYear: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM, yyyy"
+        
+        return formatter.string(from: self)
+    }
 }
 
 extension DateComponents {
     
-    var date: Date {
+    var dateFromComponents: Date {
         if let d = gregCalendar.date(from: self) {
             return d
         }
