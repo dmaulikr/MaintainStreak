@@ -12,6 +12,8 @@ import Foundation
 class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     var days: [Day] = [Day]()
+    var daysInThisMonth: [Day] = [Day]()
+    
     @IBOutlet weak var calendarView: UICollectionView!
     @IBOutlet weak var navigatorTitle: UILabel!
     
@@ -24,7 +26,7 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         calendarView.dataSource = self
         
         //get saved month
-        monthYear = Date().adding(months: 10)?.monthYear
+        monthYear = Date().adding(months: -1)?.monthYear
         
         navigatorTitle.text = monthYear.dateFromComponents.descriptionWithLongMonthAndYear
         //get saved days
