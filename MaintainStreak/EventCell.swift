@@ -16,9 +16,10 @@ class EventCell: UITableViewCell {
     
     var event: Event!
     
-    func configure(_ event: Event) {
+    func configure(_ event: Event, checked: Bool) {
         self.event = event
         colorLabel.backgroundColor = event.color
         titleLabel.text = event.name
+        self.accessoryType = checked ? .checkmark: .none
     }
 }

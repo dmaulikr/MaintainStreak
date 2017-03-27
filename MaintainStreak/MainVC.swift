@@ -14,12 +14,17 @@ class MainVC: UIViewController {
     var days: [Day] = [Day]()
     var daysInThisMonth: [Day] = [Day]()
     var events: [Event] = [Event]()
+    var eventsForToday: [Event] = [Event]()
     
     @IBOutlet weak var calendarView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var navigatorTitle: UILabel!
     
-    var monthYear: DateComponents!
+    var monthYear: DateComponents! {
+        didSet {
+            navigatorTitle.text = monthYear.dateFromComponents.descriptionWithLongMonthAndYear
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,14 +35,9 @@ class MainVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        //get saved month
         monthYear = Date().adding(months: 0)?.monthYear
-        
-        navigatorTitle.text = monthYear.dateFromComponents.descriptionWithLongMonthAndYear
-        //get saved days
+        events = generateEvents()
         generateDaysInCalendar()
-        
-        //load current days using current month
         loadDaysFromMonth()
     }
     
@@ -52,8 +52,6 @@ class MainVC: UIViewController {
     }
     
     func generateDaysInCalendar() {
-        
-        let events = generateEvents()
         
         let day1 = Day(date: Date(), events: [events[0], events[2]])
         days.append(day1)
@@ -98,8 +96,18 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        events = daysInThisMonth[indexPath.row].events
+        eventsForToday = daysInThisMonth[indexPath.row].events
         tableView.reloadData()
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.backgroundColor = UIColor.red
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        eventsForToday = [Event]()
+        tableView.reloadData()
+        
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.backgroundColor = UIColor.white
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -125,7 +133,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as? EventCell {
-            cell.configure(events[indexPath.row])
+            cell.configure(events[indexPath.row], checked: eventsForToday.contains{ $0.id == events[indexPath.row].id } )
             return cell
         }
         
