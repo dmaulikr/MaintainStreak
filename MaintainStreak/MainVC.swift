@@ -35,10 +35,11 @@ class MainVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        monthYear = Date().adding(months: 0)?.monthYear
+        monthYear = Date().adding(months: 2)?.monthYear
         events = generateEvents()
         generateDaysInCalendar()
         loadDaysFromMonth()
+        setTodaySelected()
     }
     
     func generateEvents() -> [Event] {
@@ -98,16 +99,11 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         eventsForToday = daysInThisMonth[indexPath.row].events
         tableView.reloadData()
-        let cell = collectionView.cellForItem(at: indexPath)
-        cell?.backgroundColor = UIColor.red
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         eventsForToday = [Event]()
         tableView.reloadData()
-        
-        let cell = collectionView.cellForItem(at: indexPath)
-        cell?.backgroundColor = UIColor.white
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -119,6 +115,11 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
         return UICollectionViewCell()
     }
     
+    func setTodaySelected() {
+        if let day = daysInThisMonth.index(where: { $0.date.dayEqualTo(Date()) }) {
+        calendarView.selectItem(at: IndexPath(row: day, section: 0), animated: true, scrollPosition: UICollectionViewScrollPosition.centeredVertically)
+        }
+    }
 }
 
 extension MainVC: UITableViewDelegate, UITableViewDataSource {

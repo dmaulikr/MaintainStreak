@@ -22,6 +22,13 @@ class CalendarCell: UICollectionViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var viewInCell: UIView!
     
+    override var isSelected: Bool {
+        didSet {
+            self.backgroundColor = isSelected ? UIColor(red: 84/255, green: 106/255, blue: 123/255, alpha: 1) : nil
+            print("selected ")
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }

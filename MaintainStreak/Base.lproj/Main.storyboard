@@ -106,6 +106,7 @@
                                                         </stackView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="tintColor" red="0.61960784310000006" green="0.63921568630000003" blue="0.69019607839999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="nlI-aI-MtL" firstAttribute="leading" secondItem="ICp-Jc-HUh" secondAttribute="leading" id="HM7-Mn-iW1"/>
                                                         <constraint firstAttribute="bottom" secondItem="nlI-aI-MtL" secondAttribute="bottom" id="KEl-ze-qmz"/>
@@ -136,7 +137,7 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hqT-9G-FsS">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hqT-9G-FsS">
                                 <rect key="frame" x="16" y="338" width="288" height="210"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What have you achived today?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EBT-ym-Ksq">
@@ -183,6 +184,7 @@
                                                 <constraint firstItem="Z9R-Kl-MMB" firstAttribute="leading" secondItem="vM5-vc-LRh" secondAttribute="leadingMargin" id="fO9-tW-I9e"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="tintColor" red="0.3294117647" green="0.41568627450000001" blue="0.4823529412" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="colorLabel" destination="Z9R-Kl-MMB" id="RPW-EX-CrH"/>
                                             <outlet property="titleLabel" destination="QaY-7H-amI" id="0l4-3T-fqN"/>
