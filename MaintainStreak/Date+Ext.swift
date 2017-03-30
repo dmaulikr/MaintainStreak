@@ -48,11 +48,49 @@ extension Date {
         return gregCalendar.date(byAdding: components, to: self)
     }
     
+    func adding(days: Int) -> Date? {
+        
+        var components = DateComponents()
+        components.calendar = gregCalendar
+        components.day = days
+        
+        return gregCalendar.date(byAdding: components, to: self)
+    }
+    
     var descriptionWithLongMonthAndYear: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM, yyyy"
         
         return formatter.string(from: self)
+    }
+    
+    var descriptionOfDay: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd, MMMM, yyyy"
+        
+        return formatter.string(from: self)
+    }
+    
+    var startOfWeek: Date {
+        var component = gregCalendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)
+        component.to12am()
+        return gregCalendar.date(from: component)!
+    }
+    
+    func interval(ofComponent comp: Calendar.Component, fromDate date: Date) -> Int {
+        
+        let currentCalendar = Calendar.current
+        
+        guard let start = currentCalendar.ordinality(of: comp, in: .era, for: date) else { return 0 }
+        guard let end = currentCalendar.ordinality(of: comp, in: .era, for: self) else { return 0 }
+        
+        return end - start
+    }
+    
+    var howManyDaysFromBeginingOfWeek: Int {
+        let beginingOfWeek = startOfWeek
+        let diff = self.interval(ofComponent: .day, fromDate: beginingOfWeek)
+        return diff
     }
 }
 
@@ -72,5 +110,11 @@ extension DateComponents {
             date = gregCalendar.date(byAdding: .day, value: 1, to: date)!
             print(date)
         }
+    }
+    
+    mutating func to12am() {
+        self.hour = 0
+        self.minute = 0
+        self.second = 0
     }
 }
