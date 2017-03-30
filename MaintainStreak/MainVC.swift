@@ -35,7 +35,7 @@ class MainVC: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-    
+        
         monthYear = monthLoader.monthYear
         daysInThisMonth = monthLoader.daysInThisMonth
         events = monthLoader.events
@@ -75,8 +75,10 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func setTodaySelected() {
         if let day = daysInThisMonth.index(where: { $0.date.dayEqualTo(Date()) }) {
-        calendarView.selectItem(at: IndexPath(row: day, section: 0), animated: true, scrollPosition: UICollectionViewScrollPosition.centeredVertically)
+            calendarView.selectItem(at: IndexPath(row: day, section: 0), animated: true, scrollPosition: UICollectionViewScrollPosition.centeredVertically)
+            eventsForToday = daysInThisMonth[day].events
         }
+        
     }
 }
 
