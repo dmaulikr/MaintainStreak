@@ -24,6 +24,7 @@ class MainVC: UIViewController {
             navigatorTitle.text = monthYear.dateFromComponents.descriptionWithLongMonthAndYear
         }
     }
+    var selectedDay: Day!
     
     var monthLoader = MonthLoader()
     
@@ -35,6 +36,8 @@ class MainVC: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableView.allowsMultipleSelection = true
         
         monthYear = monthLoader.monthYear
         daysInThisMonth = monthLoader.daysInThisMonth
@@ -55,7 +58,8 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        eventsForToday = daysInThisMonth[indexPath.row].events
+        selectedDay = daysInThisMonth[indexPath.row]
+        eventsForToday = selectedDay.events
         tableView.reloadData()
     }
     
@@ -76,9 +80,9 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func setTodaySelected() {
         if let day = daysInThisMonth.index(where: { $0.date.dayEqualTo(Date()) }) {
             calendarView.selectItem(at: IndexPath(row: day, section: 0), animated: true, scrollPosition: UICollectionViewScrollPosition.centeredVertically)
-            eventsForToday = daysInThisMonth[day].events
+            selectedDay = daysInThisMonth[day]
+            eventsForToday = selectedDay.events
         }
-        
     }
 }
 
@@ -94,11 +98,38 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as? EventCell {
-            cell.configure(events[indexPath.row], checked: eventsForToday.contains{ $0.id == events[indexPath.row].id } )
+            let checked = eventsForToday.contains{ $0.id == events[indexPath.row].id }
+            cell.configure(events[indexPath.row], checked: checked )
+            if checked {
+                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
+            }
             return cell
         }
         
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let _ = tableView.cellForRow(at: indexPath) as? EventCell else { return }
+        eventsForToday.append(events[indexPath.row])
+        selectedDay.events = eventsForToday
+        daysInThisMonth[daysInThisMonth.index(where: {$0.date.dayEqualTo(selectedDay.date)})!] = selectedDay
+        calendarView.reloadData()
+        tableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? EventCell else { return }
+        
+        let event = events[indexPath.row]
+        if let index = eventsForToday.index(where: { $0.id == event.id }) {
+            eventsForToday.remove(at: index)
+        }
+        
+        selectedDay.events = eventsForToday
+        daysInThisMonth[daysInThisMonth.index(where: {$0.date.dayEqualTo(selectedDay.date)})!] = selectedDay
+        calendarView.reloadData()
+        tableView.reloadData()
     }
 }
 

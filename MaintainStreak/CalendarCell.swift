@@ -41,7 +41,7 @@ class CalendarCell: UICollectionViewCell {
     func configure(day: Day){
         self.day = day
         let eventsCount = day.events.count
-        guard eventsCount >= 0 && eventsCount < 4 else { return }
+        guard eventsCount >= 0 && eventsCount <= 4 else { return }
         
         for view in colorfullViews {
             view.backgroundColor = UIColor.white
