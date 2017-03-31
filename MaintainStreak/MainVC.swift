@@ -14,6 +14,7 @@ class MainVC: UIViewController {
     var daysInThisMonth: [Day] = [Day]()
     var eventsForToday: [Event] = [Event]()
     var events: [Event] = [Event]()
+    var lastSelectedDate: Date = Date()
     
     @IBOutlet weak var calendarView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
@@ -59,18 +60,23 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedDay = daysInThisMonth[indexPath.row]
+        lastSelectedDate = selectedDay.date
         eventsForToday = selectedDay.events
         tableView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         eventsForToday = [Event]()
+        collectionView.deselectItem(at: indexPath, animated: true)
         tableView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendarCell", for: indexPath) as? CalendarCell {
             cell.configure(day: daysInThisMonth[indexPath.row])
+            if daysInThisMonth[indexPath.row].date.dayEqualTo(lastSelectedDate) {
+                cell.isSelected = true
+            }
             return cell
         }
         
@@ -78,7 +84,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func setTodaySelected() {
-        if let day = daysInThisMonth.index(where: { $0.date.dayEqualTo(Date()) }) {
+        if let day = daysInThisMonth.index(where: { $0.date.dayEqualTo(lastSelectedDate) }) {
             calendarView.selectItem(at: IndexPath(row: day, section: 0), animated: true, scrollPosition: UICollectionViewScrollPosition.centeredVertically)
             selectedDay = daysInThisMonth[day]
             eventsForToday = selectedDay.events
