@@ -110,7 +110,6 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let _ = tableView.cellForRow(at: indexPath) as? EventCell else { return }
         eventsForToday.append(events[indexPath.row])
         selectedDay.events = eventsForToday
         daysInThisMonth[daysInThisMonth.index(where: {$0.date.dayEqualTo(selectedDay.date)})!] = selectedDay
@@ -119,8 +118,6 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? EventCell else { return }
-        
         let event = events[indexPath.row]
         if let index = eventsForToday.index(where: { $0.id == event.id }) {
             eventsForToday.remove(at: index)
