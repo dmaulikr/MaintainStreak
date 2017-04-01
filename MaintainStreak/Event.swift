@@ -9,8 +9,8 @@
 import UIKit
 
 struct Event {
-    var id: Int
-    var name: String
-    var description: String
-    var color: UIColor
+    let id: Int
+    let name: String
+    let description: String
+    let color: UIColor
 }

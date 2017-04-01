@@ -8,7 +8,12 @@
 
 import Foundation
 
-struct Day {
+class Day {
     var date: Date
     var events: [Event]
+    
+    init(date: Date, events: [Event]) {
+        self.date = date
+        self.events = events
+    }
 }

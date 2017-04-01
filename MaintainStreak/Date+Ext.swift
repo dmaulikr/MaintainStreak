@@ -108,7 +108,6 @@ extension DateComponents {
         while date <= endDate {
             completion(date)
             date = gregCalendar.date(byAdding: .day, value: 1, to: date)!
-            print(date)
         }
     }
     

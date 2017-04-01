@@ -9,25 +9,24 @@
 import Foundation
 import UIKit
 
-class MonthLoader {
+class DateFetcher: EventsDataSource {
     
-    var days: [Day] = [Day]()
-    var daysInThisMonth: [Day] = [Day]()
+    lazy var monthYear: DateComponents! = {
+        return Date().adding(months: 0)?.monthYear
+    }()
     
-    var monthYear: DateComponents!
-    var events: [Event] = [Event]()
-    
-    init() {
-        //get saved month and year as date
-        monthYear = Date().adding(months: 0)?.monthYear
-        
-        events = generateEvents()
-        generateDaysInCalendar()
-        loadDaysFromMonth()
+    func requestEvents(completion: (_ data: [Event])->()) {
+        completion(loadEvents())
     }
     
-    func loadDaysFromMonth() {
+    func requestDays(month: DateComponents, completion: (_ data: [Day]) -> ()) {
+        completion(loadDaysFromMonth(month))
+    }
+    
+    private func loadDaysFromMonth(_ monthYear: DateComponents!) -> [Day]{
+        var daysInThisMonth = [Day]()
         let today = monthYear.dateFromComponents
+        let days = generateDaysInCalendar()
         
         _ = monthYear.dateRange(startDate: today.firstDayOfMonth, endDate: today.lastDayOfMonth) { day in
             let savedDay = days.filter({ $0.date.dayEqualTo(day) })
@@ -37,13 +36,14 @@ class MonthLoader {
                 daysInThisMonth.append(savedDay.first!)
             }
         }
-        //insertDaysBeforeMonday()
+        
         daysInThisMonth.sort{
             $0.date < $1.date
         }
+        return daysInThisMonth
     }
     
-    func insertDaysBeforeMonday() {
+    private func insertDaysBeforeMonday(daysInThisMonth: inout [Day]) {
         let firstDayOfMonth = daysInThisMonth.first
         let numberOfDaysFromMonday: Int = (firstDayOfMonth?.date.howManyDaysFromBeginingOfWeek)!
         
@@ -53,7 +53,7 @@ class MonthLoader {
         }
     }
     
-    func generateEvents() -> [Event] {
+    internal func loadEvents() -> [Event] {
         let event1 = Event(id: 0, name: "Paint", description: "Fun way to relax", color:
             UIColor(red: 255/255, green: 212/255, blue: 144/255, alpha: 1))
         let event2 = Event(id: 1, name: "Visit SO", description: "Continuous learning", color:
@@ -63,7 +63,9 @@ class MonthLoader {
         return [event1, event2, event3, event4]
     }
     
-    func generateDaysInCalendar() {
+    internal func generateDaysInCalendar() -> [Day]{
+        var days = [Day]()
+        let events = loadEvents()
         
         let day1 = Day(date: Date(), events: [events[0], events[2]])
         days.append(day1)
@@ -77,5 +79,7 @@ class MonthLoader {
         days.sort{
             $0.date < $1.date
         }
+        
+        return days
     }
 }
