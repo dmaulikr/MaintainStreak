@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class DateFetcher: EventsDataSource {
+class DateFetcher {
     
     lazy var monthYear: DateComponents! = {
         return Date().adding(months: 0)?.monthYear

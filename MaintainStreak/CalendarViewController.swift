@@ -13,6 +13,9 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var calendarView: UICollectionView!
     var days: [Day]!
     var dateFetcher: DateFetcher!
+    var delegate: CalendarDelegate!
+    
+    var selectedDay: Day!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,10 +25,12 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         dateFetcher.requestDays(month: dateFetcher.monthYear) { days in
             self.days = days
-            self.calendarView.reloadData()
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        setTodaySelected()
+    }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -36,9 +41,8 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        delegate.changeEventsDisplayed(days[indexPath.row])
+        selectedDay = days[indexPath.row]
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -48,8 +52,25 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
         return UICollectionViewCell()
     }
+    
+    func setTodaySelected() {
+        
+        let selectedDate = Date()
+        
+        if let day = days.index(where: { $0.date.dayEqualTo(selectedDate) }) {
+            calendarView.selectItem(at: IndexPath(row: day, section: 0), animated: true, scrollPosition: UICollectionViewScrollPosition.centeredVertically)
+            selectedDay = days[day]
+            delegate.changeEventsDisplayed(days[day])
+        }
+    }
+    
+    func reloadData() {
+        calendarView.reloadData()
+    }
 }
 
 protocol CalendarDelegate {
-    func updateDayInCalendar()
+    
+    func changeEventsDisplayed(_ day: Day)
+    
 }

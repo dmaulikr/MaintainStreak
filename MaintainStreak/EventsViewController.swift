@@ -10,11 +10,11 @@ import UIKit
 
 class EventsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var events: [Event] = [Event]()
+    private var events: [Event] = [Event]()
     var checkedEvents: [Event] = [Event]()
     
-    var delegate: CalendarDelegate!
-    var dataSource: EventsDataSource!
+    var delegate: EventsDelegate!
+    var dateFetcher: DateFetcher!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -24,8 +24,7 @@ class EventsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsMultipleSelection = true
-        
-        events = dataSource.loadEvents()
+        events = dateFetcher.loadEvents()
     }
   
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -51,7 +50,7 @@ class EventsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         checkedEvents.append(events[indexPath.row])
-        delegate.updateDayInCalendar()
+        delegate.updateDayInCalendar(checkedEvents)
         tableView.reloadData()
     }
     
@@ -61,16 +60,16 @@ class EventsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             checkedEvents.remove(at: index)
         }
         
-        delegate.updateDayInCalendar()
+        delegate.updateDayInCalendar(checkedEvents)
         tableView.reloadData()
     }
 
+    func reloadData() {
+        tableView.reloadData()
+    }
 }
 
 protocol EventsDelegate {
-    func refreshEvents(_ events: [Event])
+    func updateDayInCalendar(_ checkedEvents: [Event])
 }
 
-protocol EventsDataSource {
-    func loadEvents() -> [Event]
-}

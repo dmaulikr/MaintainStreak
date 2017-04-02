@@ -17,6 +17,7 @@ class MainVC: UIViewController, CalendarDelegate, EventsDelegate {
     @IBOutlet weak var eventsContainer: UIView!
     
     var eventsVC: EventsViewController!
+    var calendarVC: CalendarViewController!
     
     var monthYear: DateComponents! {
         didSet {
@@ -36,26 +37,27 @@ class MainVC: UIViewController, CalendarDelegate, EventsDelegate {
         case "calendarVC":
             if let calendarVC = segue.destination as? CalendarViewController {
                 calendarVC.dateFetcher = dateFetcher
+                calendarVC.delegate = self
+                self.calendarVC = calendarVC
             }
         case "eventsVC":
             if let eventsVC = segue.destination as? EventsViewController {
                 self.eventsVC = eventsVC
-                eventsVC.dataSource = dateFetcher
+                eventsVC.dateFetcher = dateFetcher
                 eventsVC.delegate = self
             }
         default: break
         }
     }
     
-    func updateDayInCalendar() {
-        //        daysInThisMonth[daysInThisMonth.index(where: {$0.date.dayEqualTo(selectedDay.date)})!] = selectedDay
-        //        selectedDay.events = eventsForToday
-        
+    func updateDayInCalendar(_ checkedEvents: [Event]) {
+        calendarVC.selectedDay.events = checkedEvents
+        calendarVC.reloadData()
     }
     
-    func refreshEvents(_ events: [Event]) {
-        eventsVC?.events = events
-        eventsVC?.tableView.reloadData()
+    func changeEventsDisplayed(_ day: Day) {
+        eventsVC?.checkedEvents = day.events
+        eventsVC?.reloadData()
     }
 }
 
