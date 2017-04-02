@@ -8,12 +8,12 @@
 
 import UIKit
 
-class CalendarViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class CalendarViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, CalendarDelegate {
     
     @IBOutlet weak var calendarView: UICollectionView!
     var days: [Day]!
     var dateFetcher: DateFetcher!
-    var delegate: CalendarDelegate!
+    var delegate: CalendarTriggerDelegate!
     
     var selectedDay: Day!
     
@@ -41,7 +41,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate.changeEventsDisplayed(days[indexPath.row])
+        delegate.triggerSelectedDayChanged(days[indexPath.row])
         selectedDay = days[indexPath.row]
     }
     
@@ -60,17 +60,22 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         if let day = days.index(where: { $0.date.dayEqualTo(selectedDate) }) {
             calendarView.selectItem(at: IndexPath(row: day, section: 0), animated: true, scrollPosition: UICollectionViewScrollPosition.centeredVertically)
             selectedDay = days[day]
-            delegate.changeEventsDisplayed(days[day])
+            delegate.triggerSelectedDayChanged(days[day])
         }
     }
     
-    func reloadData() {
-        calendarView.reloadData()
+    func changeEventsDisplayed(_ checkedEvents: [Event]) {
+            selectedDay.events = checkedEvents
+            let selectedIndex = calendarView.indexPathsForSelectedItems
+            calendarView.reloadData()
+            calendarView.selectItem(at: selectedIndex?.first, animated: true, scrollPosition: UICollectionViewScrollPosition.top)
     }
 }
 
+protocol CalendarTriggerDelegate {
+    func triggerSelectedDayChanged(_ day: Day)
+}
+
 protocol CalendarDelegate {
-    
-    func changeEventsDisplayed(_ day: Day)
-    
+    func changeEventsDisplayed(_ checkedEvents: [Event])
 }

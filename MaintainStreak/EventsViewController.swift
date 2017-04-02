@@ -8,12 +8,12 @@
 
 import UIKit
 
-class EventsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class EventsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EventsDelegate {
 
     private var events: [Event] = [Event]()
     var checkedEvents: [Event] = [Event]()
     
-    var delegate: EventsDelegate!
+    var delegate: EventsTriggerDelegate!
     var dateFetcher: DateFetcher!
     
     @IBOutlet weak var tableView: UITableView!
@@ -50,7 +50,7 @@ class EventsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         checkedEvents.append(events[indexPath.row])
-        delegate.updateDayInCalendar(checkedEvents)
+        delegate.triggerModifyEvents(checkedEvents)
         tableView.reloadData()
     }
     
@@ -60,16 +60,21 @@ class EventsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             checkedEvents.remove(at: index)
         }
         
-        delegate.updateDayInCalendar(checkedEvents)
+        delegate.triggerModifyEvents(checkedEvents)
         tableView.reloadData()
     }
-
-    func reloadData() {
+    
+    func eventsChanged(_ checkedEvents: [Event]) {
+        self.checkedEvents = checkedEvents
         tableView.reloadData()
     }
 }
 
+protocol EventsTriggerDelegate {
+    func triggerModifyEvents(_ checkedEvents: [Event])
+}
+
 protocol EventsDelegate {
-    func updateDayInCalendar(_ checkedEvents: [Event])
+    func eventsChanged(_ checkedEvents: [Event])
 }
 

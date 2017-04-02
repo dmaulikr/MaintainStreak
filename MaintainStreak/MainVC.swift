@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-class MainVC: UIViewController, CalendarDelegate, EventsDelegate {
+class MainVC: UIViewController, CalendarTriggerDelegate, EventsTriggerDelegate {
     
     @IBOutlet weak var navigatorTitle: UILabel!
     
@@ -18,6 +18,9 @@ class MainVC: UIViewController, CalendarDelegate, EventsDelegate {
     
     var eventsVC: EventsViewController!
     var calendarVC: CalendarViewController!
+    
+    var eventsDelegate: EventsDelegate!
+    var calendarDelegate: CalendarDelegate!
     
     var monthYear: DateComponents! {
         didSet {
@@ -30,6 +33,12 @@ class MainVC: UIViewController, CalendarDelegate, EventsDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         monthYear = dateFetcher.monthYear
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        calendarDelegate = calendarVC
+        eventsDelegate = eventsVC
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -50,14 +59,12 @@ class MainVC: UIViewController, CalendarDelegate, EventsDelegate {
         }
     }
     
-    func updateDayInCalendar(_ checkedEvents: [Event]) {
-        calendarVC.selectedDay.events = checkedEvents
-        calendarVC.reloadData()
+    func triggerModifyEvents(_ checkedEvents: [Event]) {
+       calendarDelegate.changeEventsDisplayed(checkedEvents)
     }
     
-    func changeEventsDisplayed(_ day: Day) {
-        eventsVC?.checkedEvents = day.events
-        eventsVC?.reloadData()
+    func triggerSelectedDayChanged(_ day: Day) {
+        eventsDelegate.eventsChanged(day.events)
     }
 }
 

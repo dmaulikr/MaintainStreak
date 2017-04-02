@@ -24,7 +24,7 @@ class CalendarCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            self.backgroundColor = isSelected ? UIColor(red: 84/255, green: 106/255, blue: 123/255, alpha: 1) : nil 
+            self.backgroundColor = isSelected ? UIColor(red: 84/255, green: 106/255, blue: 123/255, alpha: 1) : nil
         }
     }
     
