@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EventsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EventsDelegate {
+class EventsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EventsDelegate     {
 
     private var events: [Event] = [Event]()
     var checkedEvents: [Event] = [Event]()
