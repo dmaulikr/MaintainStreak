@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina3_5" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -20,14 +20,14 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nsz-7b-fag">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friday, 24 March, 2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="anA-Jf-pUm">
-                                        <rect key="frame" x="70.5" y="28.5" width="180" height="23.5"/>
+                                        <rect key="frame" x="98" y="28.5" width="180" height="23.5"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
                                         <color key="textColor" red="0.33047372102737427" green="0.41472697257995605" blue="0.48145031929016113" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -40,45 +40,36 @@
                                     <constraint firstAttribute="height" constant="60" id="4GE-Iw-tgy"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="n7d-td-0bV">
-                                <rect key="frame" x="20" y="80" width="280" height="400"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="n7d-td-0bV">
+                                <rect key="frame" x="20" y="80" width="335" height="587"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="9ny-8r-rmD">
-                                        <rect key="frame" x="0.0" y="0.0" width="280" height="280"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="9ny-8r-rmD" secondAttribute="height" id="USA-kr-huq"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="298.5"/>
                                         <connections>
                                             <segue destination="U1B-OB-Mk9" kind="embed" identifier="calendarVC" id="hCU-UW-Hva"/>
                                         </connections>
                                     </containerView>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q06-hQ-PPj" userLabel="Events Container">
-                                        <rect key="frame" x="0.0" y="280" width="280" height="120"/>
+                                        <rect key="frame" x="0.0" y="318.5" width="335" height="268.5"/>
                                         <connections>
                                             <segue destination="x9w-EB-msW" kind="embed" identifier="eventsVC" id="qCC-hq-A2f"/>
                                         </connections>
                                     </containerView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="q06-hQ-PPj" secondAttribute="trailing" id="3T7-8s-u79"/>
-                                    <constraint firstAttribute="trailing" secondItem="9ny-8r-rmD" secondAttribute="trailing" id="I0t-CU-AKq"/>
-                                    <constraint firstItem="9ny-8r-rmD" firstAttribute="top" secondItem="n7d-td-0bV" secondAttribute="top" id="ZOZ-x4-NGe"/>
-                                    <constraint firstItem="q06-hQ-PPj" firstAttribute="top" secondItem="9ny-8r-rmD" secondAttribute="bottom" id="a7i-y5-stl"/>
-                                    <constraint firstItem="q06-hQ-PPj" firstAttribute="leading" secondItem="n7d-td-0bV" secondAttribute="leading" id="syS-rR-RKb"/>
-                                    <constraint firstItem="9ny-8r-rmD" firstAttribute="leading" secondItem="n7d-td-0bV" secondAttribute="leading" id="tya-fX-aex"/>
-                                    <constraint firstAttribute="bottom" secondItem="q06-hQ-PPj" secondAttribute="bottom" id="tzm-mT-o5s"/>
+                                    <constraint firstItem="9ny-8r-rmD" firstAttribute="height" secondItem="q06-hQ-PPj" secondAttribute="height" multiplier="10:9" id="uT5-Fh-wcA"/>
                                 </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="n7d-td-0bV" secondAttribute="bottom" id="1Zg-FW-bh8"/>
                             <constraint firstAttribute="trailing" secondItem="Nsz-7b-fag" secondAttribute="trailing" id="AH5-tc-wo3"/>
-                            <constraint firstItem="n7d-td-0bV" firstAttribute="top" secondItem="Nsz-7b-fag" secondAttribute="bottom" constant="20" id="GLU-pe-RFr"/>
+                            <constraint firstItem="n7d-td-0bV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="FAN-iB-Qbu"/>
                             <constraint firstItem="Nsz-7b-fag" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="J4f-m3-jUb"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="n7d-td-0bV" secondAttribute="bottom" id="p86-hZ-zuC"/>
-                            <constraint firstItem="n7d-td-0bV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="qPH-me-7bC"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="n7d-td-0bV" secondAttribute="trailing" constant="4" id="cRL-xS-o7O"/>
+                            <constraint firstItem="n7d-td-0bV" firstAttribute="top" secondItem="Nsz-7b-fag" secondAttribute="bottom" constant="20" id="nCT-YN-j6z"/>
                             <constraint firstItem="Nsz-7b-fag" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="sL8-Hf-zEB"/>
-                            <constraint firstAttribute="trailing" secondItem="n7d-td-0bV" secondAttribute="trailing" constant="20" id="uHD-bW-t9M"/>
                         </constraints>
                     </view>
                     <connections>
@@ -95,8 +86,12 @@
         <scene sceneID="r75-OW-v5F">
             <objects>
                 <viewController id="U1B-OB-Mk9" customClass="CalendarViewController" customModule="MaintainStreak" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zmn-tp-7Kv"/>
+                        <viewControllerLayoutGuide type="bottom" id="NLy-Cr-C37"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="cfX-Ma-HtI">
-                        <rect key="frame" x="0.0" y="0.0" width="280" height="280"/>
+                        <rect key="frame" x="0.0" y="0.0" width="335" height="298.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Fgk-0B-EFP">
@@ -219,12 +214,16 @@
         <scene sceneID="2g0-aZ-xZy">
             <objects>
                 <viewController id="x9w-EB-msW" customClass="EventsViewController" customModule="MaintainStreak" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XFk-gU-AJD"/>
+                        <viewControllerLayoutGuide type="bottom" id="zG4-PJ-Abc"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="e88-ac-X0e">
-                        <rect key="frame" x="0.0" y="0.0" width="280" height="120"/>
+                        <rect key="frame" x="0.0" y="0.0" width="335" height="268.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hqT-9G-FsS">
-                                <rect key="frame" x="0.0" y="0.0" width="335" height="252"/>
+                                <rect key="frame" x="0.0" y="0.0" width="335" height="268.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What have you achived today?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EBT-ym-Ksq">
                                     <rect key="frame" x="0.0" y="0.0" width="335" height="44"/>

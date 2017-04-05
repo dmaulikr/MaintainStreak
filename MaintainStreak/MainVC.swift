@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-class MainVC: UIViewController, CalendarTriggerDelegate, EventsTriggerDelegate {
+class MainVC: UIViewController {
     
     @IBOutlet weak var navigatorTitle: UILabel!
     
@@ -19,9 +19,6 @@ class MainVC: UIViewController, CalendarTriggerDelegate, EventsTriggerDelegate {
     var eventsVC: EventsViewController!
     var calendarVC: CalendarViewController!
     
-    var eventsDelegate: EventsDelegate!
-    var calendarDelegate: CalendarDelegate!
-    
     var monthYear: DateComponents! {
         didSet {
             navigatorTitle.text = monthYear.dateFromComponents.descriptionWithLongMonthAndYear
@@ -30,15 +27,15 @@ class MainVC: UIViewController, CalendarTriggerDelegate, EventsTriggerDelegate {
     
     var dateFetcher = DateFetcher()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        eventsVC.delegate = calendarVC
+        calendarVC.delegate = eventsVC
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         monthYear = dateFetcher.monthYear
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        calendarDelegate = calendarVC
-        eventsDelegate = eventsVC
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -46,25 +43,15 @@ class MainVC: UIViewController, CalendarTriggerDelegate, EventsTriggerDelegate {
         case "calendarVC":
             if let calendarVC = segue.destination as? CalendarViewController {
                 calendarVC.dateFetcher = dateFetcher
-                calendarVC.delegate = self
                 self.calendarVC = calendarVC
             }
         case "eventsVC":
             if let eventsVC = segue.destination as? EventsViewController {
                 self.eventsVC = eventsVC
                 eventsVC.dateFetcher = dateFetcher
-                eventsVC.delegate = self
             }
         default: break
         }
-    }
-    
-    func triggerModifyEvents(_ checkedEvents: [Event]) {
-       calendarDelegate.changeEventsDisplayed(checkedEvents)
-    }
-    
-    func triggerSelectedDayChanged(_ day: Day) {
-        eventsDelegate.eventsChanged(day.events)
     }
 }
 

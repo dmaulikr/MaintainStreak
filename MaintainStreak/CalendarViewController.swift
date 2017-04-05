@@ -13,7 +13,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var calendarView: UICollectionView!
     var days: [Day]!
     var dateFetcher: DateFetcher!
-    var delegate: CalendarTriggerDelegate!
+    var delegate: EventsDelegate!
     
     var selectedDay: Day!
     
@@ -41,7 +41,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate.triggerSelectedDayChanged(days[indexPath.row])
+        delegate.replaceOldEventsWith(days[indexPath.row].events)
         selectedDay = days[indexPath.row]
     }
     
@@ -60,11 +60,11 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         if let day = days.index(where: { $0.date.dayEqualTo(selectedDate) }) {
             calendarView.selectItem(at: IndexPath(row: day, section: 0), animated: true, scrollPosition: UICollectionViewScrollPosition.centeredVertically)
             selectedDay = days[day]
-            delegate.triggerSelectedDayChanged(days[day])
+            delegate.replaceOldEventsWith(days[day].events)
         }
     }
     
-    func changeEventsDisplayed(_ checkedEvents: [Event]) {
+    func updateCell(_ checkedEvents: [Event]) {
             selectedDay.events = checkedEvents
             let selectedIndex = calendarView.indexPathsForSelectedItems
             calendarView.reloadData()
@@ -72,10 +72,6 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
 }
 
-protocol CalendarTriggerDelegate {
-    func triggerSelectedDayChanged(_ day: Day)
-}
-
 protocol CalendarDelegate {
-    func changeEventsDisplayed(_ checkedEvents: [Event])
+    func updateCell(_ checkedEvents: [Event])
 }
