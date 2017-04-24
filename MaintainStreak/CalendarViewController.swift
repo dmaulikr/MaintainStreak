@@ -12,6 +12,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     @IBOutlet weak var calendarView: UICollectionView!
     var days: [DayViewModel]!
+    var events: [EventViewModel]!
     var dataFetcher: DataFetcher!
     var delegate: EventsDelegate!
     
@@ -25,6 +26,10 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         dataFetcher.requestDays(month: dataFetcher.monthYear) { [unowned self] days in
             self.days = days
+        }
+        
+        dataFetcher.requestEventsViewModel { events in
+            self.events = events
         }
     }
     
@@ -47,7 +52,8 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendarCell", for: indexPath) as? CalendarCell {
-            cell.addEvents(dataFetcher: dataFetcher)
+            cell.defaultEvents = events
+            cell.addEvents()
             cell.configure(day: days![indexPath.row])
             return cell
         }

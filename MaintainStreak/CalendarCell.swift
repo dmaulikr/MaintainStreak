@@ -10,9 +10,10 @@ import UIKit
 
 class CalendarCell: UICollectionViewCell {
     
-    var day: DayViewModel!
+    private var day: DayViewModel!
     
-    var colorfullViews = [LittleView]()
+    private var colorfullViews = [LittleView]()
+    var defaultEvents: [EventViewModel]!
     
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var viewInCell: UIView!
@@ -28,28 +29,27 @@ class CalendarCell: UICollectionViewCell {
         super.init(coder: aDecoder)
     }
     
-    func addEvents(dataFetcher: DataFetcher) {
+    func addEvents() {
+        guard colorfullViews.count == 0 else { return }
         var dx = 0
         var counter = 0
         let space = 3
-        let littleViewWidth = 5
+        let littleViewWidth = 10
+        let leading = 5
         
-        dataFetcher.requestEventsViewModel{ events in
-            for event in events {
-                counter += 1
-                dx = littleViewWidth * (counter - 1) + space * (counter - 1)
-                let littleView = LittleView(frame: CGRect(x: space + dx, y: 5, width: littleViewWidth, height: 3))
-                littleView.event = event
-                self.viewInCell.addSubview(littleView)
-                self.colorfullViews.append(littleView)
-            }
+        for event in defaultEvents {
+            dx = (littleViewWidth + space) * counter
+            counter += 1
+            let littleView = LittleView(frame: CGRect(x: leading + dx, y: 5, width: littleViewWidth, height: littleViewWidth))
+            littleView.event = event
+            self.viewInCell.addSubview(littleView)
+            self.colorfullViews.append(littleView)
         }
+        
     }
     
     func configure(day: DayViewModel){
         self.day = day
-        let eventsCount = day.events.count
-        guard eventsCount >= 0 && eventsCount <= 4 else { return }
         
         for view in colorfullViews {
             view.backgroundColor = UIColor.white
