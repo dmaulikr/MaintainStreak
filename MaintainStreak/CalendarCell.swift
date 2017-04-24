@@ -19,7 +19,8 @@ class CalendarCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            self.backgroundColor = isSelected ? UIColor(red: 84/255, green: 106/255, blue: 123/255, alpha: 1) : nil
+            self.layer.borderWidth = 2
+            self.layer.borderColor = UIColor(red: 84/255, green: 106/255, blue: 123/255, alpha: isSelected ? 1 : 0).cgColor
         }
     }
     
@@ -30,7 +31,7 @@ class CalendarCell: UICollectionViewCell {
     func addEvents(dataFetcher: DataFetcher) {
         var dx = 0
         var counter = 0
-        let space = 2
+        let space = 3
         let littleViewWidth = 3
         
         dataFetcher.requestEventsViewModel{ events in
