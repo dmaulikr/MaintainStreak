@@ -11,11 +11,11 @@ import UIKit
 class CalendarViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, CalendarDelegate {
     
     @IBOutlet weak var calendarView: UICollectionView!
-    var days: [Day]!
-    var dateFetcher: DateFetcher!
+    var days: [DayViewModel]!
+    var dataFetcher: DataFetcher!
     var delegate: EventsDelegate!
     
-    var selectedDay: Day!
+    var selectedDay: DayViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +23,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         calendarView.delegate = self
         calendarView.dataSource = self
         
-        dateFetcher.requestDays(month: dateFetcher.monthYear) { days in
+        dataFetcher.requestDays(month: dataFetcher.monthYear) { [unowned self] days in
             self.days = days
         }
     }
@@ -47,7 +47,8 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendarCell", for: indexPath) as? CalendarCell {
-            cell.configure(day: days[indexPath.row])
+            cell.addEvents(dataFetcher: dataFetcher)
+            cell.configure(day: days![indexPath.row])
             return cell
         }
         return UICollectionViewCell()
@@ -64,7 +65,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
     
-    func updateCell(_ checkedEvents: [Event]) {
+    func updateCell(_ checkedEvents: [EventViewModel]) {
             selectedDay.events = checkedEvents
             let selectedIndex = calendarView.indexPathsForSelectedItems
             calendarView.reloadData()
@@ -73,5 +74,5 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
 }
 
 protocol CalendarDelegate {
-    func updateCell(_ checkedEvents: [Event])
+    func updateCell(_ checkedEvents: [EventViewModel])
 }

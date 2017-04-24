@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Day {
+extension Day {
     var date: Date
     var events: [Event]
     

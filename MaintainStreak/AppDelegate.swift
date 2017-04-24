@@ -7,15 +7,20 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var dataStore = DataStore()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        guard let vc = self.window?.rootViewController as? MainVC else { fatalError("Cannot instantiate root view controller") }
+        vc.dataStore = dataStore
+        vc.dataFetcher = DataFetcher(dataStore: dataStore)
+        self.window?.rootViewController = vc
         return true
     }
 
@@ -40,7 +45,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
 

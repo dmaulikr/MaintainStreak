@@ -9,12 +9,12 @@
 import UIKit
 
 class EventsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EventsDelegate     {
-
-    private var events: [Event] = [Event]()
-    var checkedEvents: [Event] = [Event]()
+    
+    private var events: [EventViewModel] = [EventViewModel]()
+    var checkedEvents: [EventViewModel] = [EventViewModel]()
     
     var delegate: CalendarDelegate!
-    var dateFetcher: DateFetcher!
+    var dataFetcher: DataFetcher!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -24,9 +24,11 @@ class EventsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsMultipleSelection = true
-        events = dateFetcher.loadEvents()
+        dataFetcher.requestEventsViewModel { events in
+                self.events = events
+        }
     }
-  
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return events.count
     }
@@ -37,7 +39,7 @@ class EventsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as? EventCell {
-            let checked = checkedEvents.contains{ $0.id == events[indexPath.row].id }
+            let checked = checkedEvents.contains{ $0 == events[indexPath.row] }
             cell.configure(events[indexPath.row], checked: checked )
             if checked {
                 tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
@@ -49,14 +51,17 @@ class EventsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        checkedEvents.append(events[indexPath.row])
+        guard let cell = tableView.cellForRow(at: indexPath) as? EventCell else{
+            return
+        }
+        checkedEvents.append(cell.event)
         delegate.updateCell(checkedEvents)
         tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let event = events[indexPath.row]
-        if let index = checkedEvents.index(where: { $0.id == event.id }) {
+        if let index = checkedEvents.index(where: { $0 == event }) {
             checkedEvents.remove(at: index)
         }
         
@@ -64,13 +69,13 @@ class EventsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.reloadData()
     }
     
-    func replaceOldEventsWith(_ checkedEvents: [Event]) {
+    func replaceOldEventsWith(_ checkedEvents: [EventViewModel]) {
         self.checkedEvents = checkedEvents
         tableView.reloadData()
     }
 }
 
 protocol EventsDelegate {
-    func replaceOldEventsWith(_ checkedEvents: [Event])
+    func replaceOldEventsWith(_ checkedEvents: [EventViewModel])
 }
 

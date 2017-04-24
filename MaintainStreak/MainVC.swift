@@ -25,7 +25,8 @@ class MainVC: UIViewController {
         }
     }
     
-    var dateFetcher = DateFetcher()
+    var dataStore: DataStore!
+    var dataFetcher: DataFetcher!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -35,20 +36,20 @@ class MainVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        monthYear = dateFetcher.monthYear
+        monthYear = dataFetcher.monthYear
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case "calendarVC":
             if let calendarVC = segue.destination as? CalendarViewController {
-                calendarVC.dateFetcher = dateFetcher
+                calendarVC.dataFetcher = dataFetcher
                 self.calendarVC = calendarVC
             }
         case "eventsVC":
             if let eventsVC = segue.destination as? EventsViewController {
                 self.eventsVC = eventsVC
-                eventsVC.dateFetcher = dateFetcher
+                eventsVC.dataFetcher = dataFetcher
             }
         default: break
         }
