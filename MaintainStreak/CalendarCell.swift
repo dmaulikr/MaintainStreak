@@ -31,7 +31,7 @@ class CalendarCell: UICollectionViewCell {
     
     func addEvents() {
         guard colorfullViews.count == 0 else { return }
-        var dx = 0
+        var dx = 0, dy = 0
         var counter = 0
         
         let littleViewWidth = Int(floor(sqrt(Double(viewInCell.bounds.width * viewInCell.bounds.height) / Double(defaultEvents.count))))
@@ -40,9 +40,11 @@ class CalendarCell: UICollectionViewCell {
         let space = (Int(viewInCell.bounds.width) - howManyOnRow * littleViewWidth) / (howManyOnRow - 1)
         
         for event in defaultEvents {
-            dx = counter % howManyOnRow * littleViewWidth + space * counter
+            dx = counter % howManyOnRow * littleViewWidth + space * (counter % howManyOnRow)
+            dy = Int( ((Double(counter) / Double(howManyOnRow)).rounded(.down) * Double (littleViewWidth))) + (counter / howManyOnRow ) * space
+            
             let littleView = LittleView(frame: CGRect(x: leading + dx,
-                                                      y: Int( ((Double(counter) / Double(howManyOnRow)).rounded(.down) * Double (littleViewWidth))) ,
+                                                      y:  dy,
                                                       width: littleViewWidth, height: littleViewWidth))
             counter += 1
             littleView.event = event
