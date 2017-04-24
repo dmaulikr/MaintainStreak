@@ -75,6 +75,8 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         selectedDay.events = checkedEvents
         guard let selectedIndex = calendarView.indexPathsForSelectedItems?.first else { return }
         days![selectedIndex.row].events = checkedEvents
+        dataFetcher.updateEvents(day: days![selectedIndex.row].day, events: NSSet(array: checkedEvents.map{$0.event}))
+        
         calendarView.reloadItems(at: [selectedIndex])
         calendarView.selectItem(at: selectedIndex, animated: true, scrollPosition: UICollectionViewScrollPosition.top)
     }

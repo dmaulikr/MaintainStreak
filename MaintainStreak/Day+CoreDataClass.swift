@@ -12,7 +12,7 @@ import CoreData
 @objc(Day)
 public class Day: NSManagedObject {
 
-    convenience init(date: Date, events: [Event]) {
+    convenience init(date: Date, events: NSSet) {
         self.init()
         self.date = date
         self.events = events

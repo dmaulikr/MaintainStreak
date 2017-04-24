@@ -15,7 +15,10 @@ class EventViewModel: Equatable{
     var name: String
     var summary: String
     
+    var event: Event
+    
     init(_ event: Event) {
+        self.event = event
         color = event.color
         name = event.name
         summary = event.summary

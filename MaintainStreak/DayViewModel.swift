@@ -13,15 +13,13 @@ class DayViewModel {
     var date: Date
     var events: [EventViewModel] = []
     
+    var day: Day!
+    
     init(_ day: Day) {
+        self.day = day
         date = day.date
         for event in day.events {
-            events.append(EventViewModel(event))
+            events.append(EventViewModel(event as! Event))
         }
-    }
-    
-    init(_ dateAsADate: Date) {
-        date = dateAsADate
-        events = []
     }
 }

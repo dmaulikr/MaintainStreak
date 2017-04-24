@@ -17,7 +17,7 @@ extension Day {
     }
 
     @NSManaged public var date: Date!
-    @NSManaged public var events: [Event]!
+    @NSManaged public var events: NSSet!
 }
 
 // MARK: Generated accessors for events

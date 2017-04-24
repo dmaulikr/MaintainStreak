@@ -46,10 +46,10 @@ class DataFetcher {
         let today = monthYear.dateFromComponents
         let daysInDB = fetchDays()
         
-        _ = monthYear.dateRange(startDate: today.firstDayOfMonth, endDate: today.lastDayOfMonth) { day in
-            let savedDay = daysInDB.filter({ $0.date.dayEqualTo(day) })
+        _ = monthYear.dateRange(startDate: today.firstDayOfMonth, endDate: today.lastDayOfMonth) { date in
+            let savedDay = daysInDB.filter({ $0.date.dayEqualTo(date) })
             if  savedDay.count != 1 {
-                daysInThisMonth.append( DayViewModel(day))
+                daysInThisMonth.append( DayViewModel(saveDay(date: date)))
             } else {
                 let dayInDB = savedDay.first!
                 daysInThisMonth.append(DayViewModel(dayInDB))
@@ -109,5 +109,19 @@ class DataFetcher {
             print(error)
             return []
         }
+    }
+    
+    func saveDay(date: Date) -> Day {
+        let day = Day(context: dataStore.mainContext)
+        day.date = date
+        day.events = []
+        dataStore.saveContext()
+        
+        return day
+    }
+    
+    func updateEvents(day: Day, events: NSSet) {
+        day.events = events
+        dataStore.saveContext()
     }
 }
