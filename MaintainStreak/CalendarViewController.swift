@@ -66,10 +66,11 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func updateCell(_ checkedEvents: [EventViewModel]) {
-            selectedDay.events = checkedEvents
-            let selectedIndex = calendarView.indexPathsForSelectedItems
-            calendarView.reloadData()
-            calendarView.selectItem(at: selectedIndex?.first, animated: true, scrollPosition: UICollectionViewScrollPosition.top)
+        selectedDay.events = checkedEvents
+        guard let selectedIndex = calendarView.indexPathsForSelectedItems?.first else { return }
+        days![selectedIndex.row].events = checkedEvents
+        calendarView.reloadItems(at: [selectedIndex])
+        calendarView.selectItem(at: selectedIndex, animated: true, scrollPosition: UICollectionViewScrollPosition.top)
     }
 }
 

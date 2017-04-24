@@ -32,7 +32,7 @@ class CalendarCell: UICollectionViewCell {
         var dx = 0
         var counter = 0
         let space = 3
-        let littleViewWidth = 3
+        let littleViewWidth = 5
         
         dataFetcher.requestEventsViewModel{ events in
             for event in events {
@@ -56,7 +56,8 @@ class CalendarCell: UICollectionViewCell {
         }
         
         for event in day.events {
-            colorfullViews.filter{ $0.event! == event }.first?.backgroundColor = event.color
+            let viewColoredBecauseOfEvent = colorfullViews.filter{ $0.event! == event }
+            viewColoredBecauseOfEvent.first?.backgroundColor = event.color
         }
         
         dateLabel.text = day.date.dayOfTheMonth
