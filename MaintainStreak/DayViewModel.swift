@@ -18,7 +18,8 @@ class DayViewModel {
     init(_ day: Day) {
         self.day = day
         date = day.date
-        for event in day.events {
+        guard let allEvents = day.events else { return }
+        for event in allEvents {
             events.append(EventViewModel(event as! Event))
         }
     }

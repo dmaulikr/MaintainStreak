@@ -2,7 +2,7 @@
 //  Day+CoreDataProperties.swift
 //  MaintainStreak
 //
-//  Created by Laura Calinoiu on 11/04/2017.
+//  Created by Laura Calinoiu on 25/04/2017.
 //  Copyright © 2017 Laura Calinoiu. All rights reserved.
 //
 
@@ -16,8 +16,9 @@ extension Day {
         return NSFetchRequest<Day>(entityName: "Day")
     }
 
-    @NSManaged public var date: Date!
-    @NSManaged public var events: NSSet!
+    @NSManaged public var date: Date
+    @NSManaged public var events: NSSet?
+
 }
 
 // MARK: Generated accessors for events

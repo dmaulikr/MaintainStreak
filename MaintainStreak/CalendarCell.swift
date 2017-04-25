@@ -31,6 +31,7 @@ class CalendarCell: UICollectionViewCell {
     
     func addEvents() {
         guard colorfullViews.count == 0 else { return }
+        guard defaultEvents.count != 0 else { return }
         var dx = 0, dy = 0
         var counter = 0
         

@@ -2,7 +2,7 @@
 //  Event+CoreDataClass.swift
 //  MaintainStreak
 //
-//  Created by Laura Calinoiu on 11/04/2017.
+//  Created by Laura Calinoiu on 25/04/2017.
 //  Copyright © 2017 Laura Calinoiu. All rights reserved.
 //
 
@@ -19,5 +19,4 @@ public class Event: NSManagedObject {
         self.name = name
         self.summary = summary
     }
-
 }

@@ -20,6 +20,7 @@ class DataFetcher {
     
     init(dataStore: DataStore) {
         self.dataStore = dataStore
+        //_ = generateEvents()
     }
     
     func requestEventsViewModel(_ completion: (_ data: [EventViewModel]) -> ()) {
@@ -62,7 +63,7 @@ class DataFetcher {
         return daysInThisMonth
     }
     
-    private func loadEvents() -> [Event] {
+    private func generateEvents() -> [Event] {
         let event1 = Event(context: dataStore.mainContext)
         event1.name = "Paint"
         event1.summary = "Fun way to relax"
