@@ -32,21 +32,27 @@ class CalendarCell: UICollectionViewCell {
     func addEvents() {
         guard colorfullViews.count == 0 else { return }
         guard defaultEvents.count != 0 else { return }
+      
+        let width = Double(viewInCell.bounds.width)
+        let height = Double(viewInCell.bounds.height)
+        let n = Double(defaultEvents.count)
+        
+        let sidex = width / (sqrt((n * width) / height).rounded(.down)) - 1
+        let side = Int(sidex.rounded(.down))
+        
+        
+        let howManyOnRow = Int((width / Double(side)).rounded(.down))
+        let space = howManyOnRow > 0 ? (Int(viewInCell.bounds.width) - howManyOnRow * side) / (howManyOnRow - 1) : 0
+        
         var dx = 0, dy = 0
         var counter = 0
         
-        let littleViewWidth = Int(floor(sqrt(Double(viewInCell.bounds.width * viewInCell.bounds.height) / Double(defaultEvents.count))))
-        let howManyOnRow = Int((Double(viewInCell.bounds.width) / Double(littleViewWidth)).rounded(.down))
-        let leading = 0
-        let space = (Int(viewInCell.bounds.width) - howManyOnRow * littleViewWidth) / (howManyOnRow - 1)
-        
         for event in defaultEvents {
-            dx = counter % howManyOnRow * littleViewWidth + space * (counter % howManyOnRow)
-            dy = Int( ((Double(counter) / Double(howManyOnRow)).rounded(.down) * Double (littleViewWidth))) + (counter / howManyOnRow ) * space
+            dx = counter % howManyOnRow * side + space * (counter % howManyOnRow)
+            dy = Int( ((Double(counter) / Double(howManyOnRow)).rounded(.down) * Double (side))) +
+                (counter / howManyOnRow ) * space
             
-            let littleView = LittleView(frame: CGRect(x: leading + dx,
-                                                      y:  dy,
-                                                      width: littleViewWidth, height: littleViewWidth))
+            let littleView = LittleView(frame: CGRect(x: dx, y: dy, width: side, height: side))
             counter += 1
             littleView.event = event
             self.viewInCell.addSubview(littleView)
