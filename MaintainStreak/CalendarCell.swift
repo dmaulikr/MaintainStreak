@@ -20,19 +20,28 @@ class CalendarCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            self.layer.borderWidth = 2
-            self.layer.borderColor = UIColor(red: 84/255, green: 106/255, blue: 123/255, alpha: isSelected ? 1 : 0).cgColor
+            if isSelected {
+                self.layer.borderWidth = 2
+                self.layer.borderColor = UIColor(red: 84/255, green: 106/255, blue: 123/255, alpha: 1).cgColor
+            } else {
+                drawANiceBorderAround()
+            }
         }
     }
     
+    func drawANiceBorderAround() {
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor(red: 44/255, green: 53/255, blue: 60/255, alpha: 0.2).cgColor
+    }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        drawANiceBorderAround()
     }
     
     func addEvents() {
         guard colorfullViews.count == 0 else { return }
         guard defaultEvents.count != 0 else { return }
-      
+        
         let width = Double(viewInCell.bounds.width)
         let height = Double(viewInCell.bounds.height)
         let n = Double(defaultEvents.count)
@@ -42,7 +51,7 @@ class CalendarCell: UICollectionViewCell {
         
         
         let howManyOnRow = Int((width / Double(side)).rounded(.down))
-        let space = howManyOnRow > 0 ? (Int(viewInCell.bounds.width) - howManyOnRow * side) / (howManyOnRow - 1) : 0
+        let space = howManyOnRow > 1 ? (Int(viewInCell.bounds.width) - howManyOnRow * side) / (howManyOnRow - 1) : 0
         
         var dx = 0, dy = 0
         var counter = 0

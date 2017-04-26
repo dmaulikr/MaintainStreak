@@ -25,11 +25,15 @@ class EventsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Ev
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsMultipleSelection = true
-        dataProvider.requestEventsViewModel { events in
-                self.events = events
-        }
         
         tableView.register(UINib(nibName: "EventCell", bundle: nil), forCellReuseIdentifier: eventCellIdentifier)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        dataProvider.requestEventsViewModel { events in
+            self.events = events
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
