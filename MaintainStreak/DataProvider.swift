@@ -10,9 +10,10 @@ import Foundation
 import UIKit
 import CoreData
 
-class DataFetcher {
+class DataProvider {
     
     private var dataStore: DataStore
+    var fetchedResultsController: NSFetchedResultsController<Event>!
     
     lazy var monthYear: DateComponents! = {
         return Date().adding(months: 0)?.monthYear
@@ -20,7 +21,10 @@ class DataFetcher {
     
     init(dataStore: DataStore) {
         self.dataStore = dataStore
-        //_ = generateEvents()
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: false)
+        let fetchRequest: NSFetchRequest<Event> = Event.fetchRequest()
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataStore.mainContext, sectionNameKeyPath: nil, cacheName: nil)
     }
     
     func requestEventsViewModel(_ completion: (_ data: [EventViewModel]) -> ()) {

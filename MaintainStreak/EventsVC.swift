@@ -7,14 +7,15 @@
 //
 
 import UIKit
+let eventCellIdentifier = "eventCell"
 
-class EventsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EventsDelegate     {
+class EventsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, EventsDelegate     {
     
     private var events: [EventViewModel] = [EventViewModel]()
     var checkedEvents: [EventViewModel] = [EventViewModel]()
     
     var delegate: CalendarDelegate!
-    var dataFetcher: DataFetcher!
+    var dataProvider: DataProvider!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -24,9 +25,11 @@ class EventsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsMultipleSelection = true
-        dataFetcher.requestEventsViewModel { events in
+        dataProvider.requestEventsViewModel { events in
                 self.events = events
         }
+        
+        tableView.register(UINib(nibName: "EventCell", bundle: nil), forCellReuseIdentifier: eventCellIdentifier)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -38,7 +41,7 @@ class EventsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as? EventCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: eventCellIdentifier, for: indexPath) as? EventCell {
             let checked = checkedEvents.contains{ $0 == events[indexPath.row] }
             cell.configure(events[indexPath.row], checked: checked )
             if checked {

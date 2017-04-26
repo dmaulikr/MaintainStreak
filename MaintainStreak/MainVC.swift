@@ -16,8 +16,8 @@ class MainVC: UIViewController {
     @IBOutlet weak var calendarContainer: UIView!
     @IBOutlet weak var eventsContainer: UIView!
     
-    var eventsVC: EventsViewController!
-    var calendarVC: CalendarViewController!
+    var eventsVC: EventsVC!
+    var calendarVC: CalendarVC!
     
     var monthYear: DateComponents! {
         didSet {
@@ -25,8 +25,7 @@ class MainVC: UIViewController {
         }
     }
     
-    var dataStore: DataStore!
-    var dataFetcher: DataFetcher!
+    var dataProvider: DataProvider!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -36,20 +35,26 @@ class MainVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        monthYear = dataFetcher.monthYear
+        monthYear = dataProvider.monthYear
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier! {
+        guard let identifier = segue.identifier else { return }
+        switch identifier {
         case "calendarVC":
-            if let calendarVC = segue.destination as? CalendarViewController {
-                calendarVC.dataFetcher = dataFetcher
+            if let calendarVC = segue.destination as? CalendarVC {
+                calendarVC.dataProvider = dataProvider
                 self.calendarVC = calendarVC
             }
         case "eventsVC":
-            if let eventsVC = segue.destination as? EventsViewController {
+            if let eventsVC = segue.destination as? EventsVC {
                 self.eventsVC = eventsVC
-                eventsVC.dataFetcher = dataFetcher
+                eventsVC.dataProvider = dataProvider
+            }
+            
+        case "settingsVC":
+            if let settingsVC = segue.destination as? SettingsVC {
+                settingsVC.dataProvider = dataProvider
             }
         default: break
         }

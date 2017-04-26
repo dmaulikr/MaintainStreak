@@ -8,8 +8,9 @@
 
 import Foundation
 import UIKit
+import CoreData
 
-class EventViewModel: Equatable{
+class EventViewModel: Equatable {
     
     var color: UIColor
     var name: String

@@ -8,12 +8,12 @@
 
 import UIKit
 
-class CalendarViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, CalendarDelegate {
+class CalendarVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, CalendarDelegate {
     
     @IBOutlet weak var calendarView: UICollectionView!
     var days: [DayViewModel]!
     var events: [EventViewModel]!
-    var dataFetcher: DataFetcher!
+    var dataProvider: DataProvider!
     var delegate: EventsDelegate!
     
     var selectedDay: DayViewModel!
@@ -24,11 +24,11 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         calendarView.delegate = self
         calendarView.dataSource = self
         
-        dataFetcher.requestDays(month: dataFetcher.monthYear) { [unowned self] days in
+        dataProvider.requestDays(month: dataProvider.monthYear) { [unowned self] days in
             self.days = days
         }
         
-        dataFetcher.requestEventsViewModel { events in
+        dataProvider.requestEventsViewModel { events in
             self.events = events
         }
     }
@@ -75,7 +75,7 @@ class CalendarViewController: UIViewController, UICollectionViewDelegate, UIColl
         selectedDay.events = checkedEvents
         guard let selectedIndex = calendarView.indexPathsForSelectedItems?.first else { return }
         days![selectedIndex.row].events = checkedEvents
-        dataFetcher.updateEvents(day: days![selectedIndex.row].day, events: NSSet(array: checkedEvents.map{$0.event}))
+        dataProvider.updateEvents(day: days![selectedIndex.row].day, events: NSSet(array: checkedEvents.map{$0.event}))
         
         calendarView.reloadItems(at: [selectedIndex])
         calendarView.selectItem(at: selectedIndex, animated: true, scrollPosition: UICollectionViewScrollPosition.top)

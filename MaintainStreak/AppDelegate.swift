@@ -18,8 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         guard let vc = self.window?.rootViewController as? MainVC else { fatalError("Cannot instantiate root view controller") }
-        vc.dataStore = dataStore
-        vc.dataFetcher = DataFetcher(dataStore: dataStore)
+        vc.dataProvider = DataProvider(dataStore: dataStore)
         self.window?.rootViewController = vc
         return true
     }
