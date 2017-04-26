@@ -21,5 +21,6 @@ class EventCell: UITableViewCell {
         colorLabel.backgroundColor = event.color
         titleLabel.text = event.name
         self.accessoryType = checked ? .checkmark: .none
+        self.selectionStyle = .none
     }
 }

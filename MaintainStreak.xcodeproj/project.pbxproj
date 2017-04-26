@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5B1EE6FA1EB0B30900E80720 /* EventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B1EE6F91EB0B30900E80720 /* EventCell.xib */; };
+		5B3DB0871EB0CB9B00ACC99C /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3DB0861EB0CB9B00ACC99C /* CircleButton.swift */; };
+		5B3DB0891EB0D29900ACC99C /* NewEventVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3DB0881EB0D29900ACC99C /* NewEventVC.swift */; };
 		5B420FCA1E8CEA9D006A257E /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B420FC91E8CEA9D006A257E /* DataProvider.swift */; };
 		5B543C581EAEF20800A14484 /* Day+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B543C541EAEF20800A14484 /* Day+CoreDataClass.swift */; };
 		5B543C591EAEF20800A14484 /* Day+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B543C551EAEF20800A14484 /* Day+CoreDataProperties.swift */; };
@@ -34,6 +36,8 @@
 
 /* Begin PBXFileReference section */
 		5B1EE6F91EB0B30900E80720 /* EventCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventCell.xib; sourceTree = "<group>"; };
+		5B3DB0861EB0CB9B00ACC99C /* CircleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
+		5B3DB0881EB0D29900ACC99C /* NewEventVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewEventVC.swift; sourceTree = "<group>"; };
 		5B420FC91E8CEA9D006A257E /* DataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		5B543C541EAEF20800A14484 /* Day+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Day+CoreDataClass.swift"; path = "MaintainStreak/Day+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5B543C551EAEF20800A14484 /* Day+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Day+CoreDataProperties.swift"; path = "MaintainStreak/Day+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -123,6 +127,7 @@
 				5BDA78601EAE2B3F00F206E3 /* LittleView.swift */,
 				5BDA78621EAE2B6D00F206E3 /* EventViewModel.swift */,
 				5B1EE6F91EB0B30900E80720 /* EventCell.xib */,
+				5B3DB0861EB0CB9B00ACC99C /* CircleButton.swift */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -134,6 +139,7 @@
 				5BA7C9641E8EDA8D00D5F315 /* CalendarVC.swift */,
 				5BA7C9661E8F80F700D5F315 /* EventsVC.swift */,
 				5BFC22361EB07C3800736707 /* SettingsVC.swift */,
+				5B3DB0881EB0D29900ACC99C /* NewEventVC.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -240,6 +246,8 @@
 				5B543C581EAEF20800A14484 /* Day+CoreDataClass.swift in Sources */,
 				5BDA78611EAE2B3F00F206E3 /* LittleView.swift in Sources */,
 				5B570B901E86B1E80021823E /* MaterialView.swift in Sources */,
+				5B3DB0871EB0CB9B00ACC99C /* CircleButton.swift in Sources */,
+				5B3DB0891EB0D29900ACC99C /* NewEventVC.swift in Sources */,
 				5BFC22371EB07C3800736707 /* SettingsVC.swift in Sources */,
 				5B570B891E8558810021823E /* CalendarCell.swift in Sources */,
 				5BDA785D1EAC7CFE00F206E3 /* DataStore.swift in Sources */,

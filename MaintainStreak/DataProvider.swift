@@ -129,4 +129,12 @@ class DataProvider {
         day.events = events
         dataStore.saveContext()
     }
+    
+    func addEvent(name: String, color: UIColor) {
+        let event4 = Event(context: dataStore.mainContext)
+        event4.name = name
+        event4.color = color
+        
+        dataStore.saveContext()
+    }
 }

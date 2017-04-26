@@ -96,4 +96,15 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             break
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier else { return }
+        
+        switch identifier {
+        case "NewEvent":
+            guard let newEventVC = segue.destination as? NewEventVC else { return }
+            newEventVC.dataProvider = dataProvider
+        default: break
+        }
+    }
 }
